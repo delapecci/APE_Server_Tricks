@@ -1,0 +1,41 @@
+1.Prepare
+a. install devel library
+
+sudo yum install libstdc++-devel gcc-c++ zip keyutils-libs-devel libsepol-devel ¥
+libselinux-devel libcom_err-devel krb5-devel openssl-devel mysql-devel
+
+* if installation has errors, please google, sorry for no comments
+
+b. install make git
+
+sudo yum install make git
+
+c. download APE_Server v1.1.0 sources zipball, and unzip it to APE_Server-1.1.0
+
+d. [optional] If CentOS is 64bit version, we should change the mysac link library path;
+   jump into the APE_Server-1.1.0/modules, change the Makefile, Line 7 to:
+
+MYSQL_FLAGS = -L./deps/mysac/ -L/usr/lib64/mysql -I./deps/mysac/ -lmysac -lmysqlclient_r
+
+e. i make a build-lib.sh which is only for building libmode_spidermonkey.so, 
+   please copy this file into APE_Server-1.1.0 folder, and execute it:
+   sh build-lib.sh
+   
+f. After the compilation, jump into the APE_Server v1.1.0/modules/lib, you will see a
+   file named libmod_spidermonkey.so, which will be used later;
+
+2. Get and make APE Server v1.1.2 with wonderful websocket support;
+
+a. Download APE Server v1.1.2 at
+   https://github.com/APE-Project/APE_Server/archive/1.2.zip
+   Unzip this zipball to APE_Server-1.1.2
+
+b. i make a build-ape.sh which is only for building aped, please copy this file into
+   APE_Server-1.1.2 folder, and execute it:
+   sh build-ape.sh
+   
+c. OK, now, just copy the libmod_spidermonkey.so compiled in APE_Server-1.1.0, into
+   APE_Server-1.1.2/modules/lib, finally!
+
+3. Enjoy from APE_Server-1.1.2/bin/aped
+
